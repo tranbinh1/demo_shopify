@@ -1,0 +1,383 @@
+.previewCart{
+    padding: 30px 20px 140px 20px;
+}
+
+.previewCartItem{
+    position: relative;
+    font-size: 0;
+    letter-spacing: 0;
+    padding: 20px 0 0 0;
+}
+
+.previewCartItem-image{
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    width: 100px;
+    text-align: center;
+}
+
+.previewCartItem-image img{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.previewCartItem-image:before{
+    content: '';
+    display: block;
+    height: 0;
+    width: 100%;
+    padding-bottom: 160px;
+}
+
+.previewCartItem-content{
+    display: inline-block;
+    vertical-align: top;
+    width: calc(100% - 100px);
+    padding: 0 0 0 20px;
+}
+
+.previewCartItem-name{
+    overflow: hidden;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    font-family: var(--product-title-font);
+    font-size: var(--product-title-font-size);
+    font-weight: var(--product-title-font-weight);
+    line-height: var(--line-height);
+    letter-spacing: var(--letter-spacing);
+    color: var(--product-title-color);
+    text-transform: var(--product-title-text-transform);
+    margin: 0 0 10px 0;
+}
+
+.previewCartItem-options{
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    padding: 0 30px 0 0;
+    margin: 0 0 7px 0;
+}
+
+.previewCartItem-variant{
+    display: block;
+    font-size: var(--font-size);
+    font-weight: var(--font-weight-normal);
+    color: var(--color-text2);
+    text-transform: capitalize;
+    letter-spacing: var(--letter-spacing);
+    line-height: var(--line-height);
+}
+
+.previewCartItem-edit{
+    display: inline-block;
+    vertical-align: top;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+}
+
+.previewCartItem-edit .icon{
+    width: 14px;
+    height: 14px;
+}
+
+.previewCartItem-price{
+    margin: 0 0 10px 0;
+}
+
+.previewCartItem-price .price{
+    display: block;
+    font-size: calc(var(--font-size) + 2px);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--letter-spacing);
+    line-height: var(--line-height);
+    color: var(--product-price-color);
+}
+
+.previewCartItem-qty{
+    display: inline-block;
+    vertical-align: middle;
+    width: 80px;
+}
+
+.previewCartItem-qty .quantity{
+    padding: 7px 14px 7px 20px;
+}
+
+.previewCartItem-remove{
+    position: absolute;
+    top: 5px;
+    left: -10px;
+    background-color: var(--bg-black);
+    border-radius: 50%;
+    padding: 6px;
+    border: 1px solid var(--bg-black);
+}
+
+.previewCartItem-remove svg{
+    width: 15px;
+    height: 15px;
+    fill: var(--color-white);
+    stroke: transparent;
+}
+
+.previewCartItem + .previewCartItem{
+    border-top: 1px solid var(--cart-item-border);
+    margin-top: 15px;
+}
+
+.previewCart-emptyBody .empty{
+    font-size: var(--font-size);
+    font-weight: var(--font-weight-normal);
+    letter-spacing: var(--letter-spacing);
+    line-height: var(--line-height);
+    color: var(--color-text2);
+    margin: 0 0 22px 0;
+}
+
+.previewCartCollection{
+    padding: 17px 30px 20px 30px;
+    position: relative;
+}
+
+.previewCartTitle{
+    font-family: var(--font-heading-family);
+    font-size: calc(var(--header-font-size) - 6px);
+    font-weight: var(--header-font-weight);
+    line-height: var(--line-height);
+    letter-spacing: var(--letter-spacing);
+    text-transform: var(--header-text-transform);
+    position: relative;
+    margin: 0 0 22px 0;
+}
+
+.previewCartCarousel .product{
+    display: inline-block;
+    vertical-align: top;
+    width: 100%;
+}
+
+.previewCartCarousel .slick-arrow{
+    padding: 0;
+    width: 24px;
+    height: 44px;
+}
+
+.previewCartCarousel .slick-arrow.slick-prev{
+    left: -25px;
+}
+
+.previewCartCarousel .slick-arrow.slick-next{
+    right: -25px;
+}
+
+.previewCartCarousel:not(.slick-initialized){
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 0;
+    letter-spacing: 0;
+}
+
+.previewCartInfo{
+    position: relative;
+    padding: 27px 30px 100px 30px;
+}
+
+.previewCartTotals{
+    display: block;
+    font-size: 0;
+    letter-spacing: 0;
+}
+
+.previewCartTotals .previewCartTotals-label,
+.previewCartTotals .previewCartTotals-value{
+    display: inline-block;
+    vertical-align: top;
+    font-size: var(--font-size);
+    line-height: var(--line-height);
+    letter-spacing: var(--letter-spacing);
+}
+
+.previewCartTotals .previewCartTotals-label{
+    width: 120px;
+    text-align: left;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+}
+
+.previewCartTotals .previewCartTotals-value{
+    width: calc(100% - 120px);
+    text-align: right;
+    font-weight: var(--font-weight-normal);
+    color: var(--color-grey);
+    font-style: italic;
+}
+
+.previewCartTotals.subTotal .previewCartTotals-value{
+    font-weight: var(--font-weight-bold);
+    font-style: normal;
+    color: var(--color-text);
+}
+
+.previewCartTotals + .previewCartTotals{
+    margin-top: 9px;
+}
+
+.previewCartAction{
+    margin: 20px 0 0 0;
+}
+
+.previewCartCheckbox input[type="checkbox"] + label{
+    display: inline-block;
+    vertical-align: top;
+    width: auto;
+    font-size: calc(var(--font-size) - 1px);
+    padding-left: 25px;
+    line-height: 20px;
+}
+
+.previewCartCheckbox input[type="checkbox"] ~ a{
+    display: inline-block;
+    vertical-align: top;
+    font-size: calc(var(--font-size) - 1px);
+    line-height: 20px;
+    color: var(--color-text);
+    margin: 0 0 0 5px;
+}
+
+.previewCartGroup{
+    margin: 47px 0 0 0;
+}
+
+.previewCartGroup .button + .button{
+    margin-top: 10px;
+}
+
+body.cart-sidebar-show{
+    overflow-y: hidden;
+    height: 100%;
+}
+
+body.cart-sidebar-show .background-overlay{
+    display: block;
+}
+
+body.cart-sidebar-show .halo-cart-sidebar{
+    transform: translate3d(0,0,0);
+    opacity: 1;
+    visibility: visible;
+}
+
+@media (min-width: 551px){
+    .previewCartItem{
+        padding-top: 0;
+        background-color: var(--cart-item-bg);
+        border-color: var(--cart-item-border)!important;
+        border-width: var(--cart-item-border-width)!important;
+        border-style: var(--cart-item-border-style)!important;
+    }
+
+    .previewCartItem-image{
+        width: 110px;
+    }
+
+    .previewCartItem-content{
+        width: calc(100% - 110px);
+        padding: 20px 20px 0 20px;
+        position: relative;
+    }
+
+    .previewCartItem-name{
+        padding-right: 25px;
+    }
+
+    .previewCartItem-change{
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+    }
+
+    .previewCartItem-price{
+        width: calc(100% - 80px);
+        margin-bottom: 0;
+    }
+
+    .previewCartItem-qty{
+        display: block;
+    }
+
+    .previewCartItem-remove{
+        top: 17px;
+        left: auto;
+        right: 20px;
+        padding: 0;
+        background-color: transparent;
+        border-radius: 0;
+        border: none;
+    }
+
+    .previewCartItem-remove svg{
+        fill: var(--icon);
+        width: 18px;
+        height: 18px;
+    }
+
+    .previewCartItem + .previewCartItem{
+        border-top: 0;
+        margin-top: 30px;
+    }
+}
+
+@media (min-width: 1025px){
+    .previewCart{
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    .previewCartItem-name:hover{
+        color: var(--product-title-color-hover);
+    }
+
+    .previewCartCarousel .product-item .product-image svg{
+        display: block;
+    }
+
+    .previewCartCarousel .product-item .product-image:before{
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 3;
+        opacity: 0;
+        visibility: hidden;
+        background: rgba(0,0,0,.3);
+        transition: var(--anchor-transition);
+    }
+
+    .previewCartCarousel .product-item .product-image:hover svg{
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    .previewCartCarousel .product-item .product-image:hover:before{
+        opacity: 1;
+        visibility: visible;
+    }
+}

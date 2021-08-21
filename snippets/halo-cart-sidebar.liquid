@@ -1,0 +1,16 @@
+<link rel="stylesheet" href="{{ 'component-quick-cart.css' | asset_url }}" media="print" onload="this.media='all'">
+
+<noscript>{{ 'component-quick-cart.css' | asset_url | stylesheet_tag }}</noscript>
+
+<div class="halo-sidebar halo-sidebar-right halo-cart-sidebar" id="halo-cart-sidebar">
+    <a href="#" class="halo-sidebar-close" data-close-cart-sidebar>
+        {% render 'icon-close' %}
+    </a>
+    <div class="halo-sidebar-header text-left">
+		<span class="title">
+			{{ 'sections.cart.my_cart' | t }}
+	        (<span data-cart-count>{{ cart.item_count }}</span>)
+		</span>
+	</div>
+    <div class="halo-sidebar-wrapper custom-scrollbar"></div>
+</div>

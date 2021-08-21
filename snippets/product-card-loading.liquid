@@ -1,0 +1,66 @@
+<div class="product-item">
+    <div class="card">
+        <div class="card-product{% if product_card_product.featured_media == nil %} card--text-only card--soft{% endif %}">
+            <div class="card-product__wrapper">
+                {%- liquid
+                    assign featured_media_aspect_ratio = product_card_product.featured_media.aspect_ratio
+
+                    if product_card_product.featured_media.aspect_ratio == nil
+                        assign featured_media_aspect_ratio = 1
+                    endif
+                -%}
+                <div class="card-media card-media--{{ media_size }} animated-loading"
+                    {% if product_card_product.featured_media %}
+                        {% if media_size == 'adapt' %}
+                            style="padding-bottom: {{ 1 | divided_by: featured_media_aspect_ratio | times: 100 }}%;"
+                        {% elsif media_size == 'square' %}
+                            style="padding-bottom: 100%;"
+                        {% elsif media_size == 'portrait' %}
+                            {% if portrait_aspect_ratio != blank %}
+                                style="padding-bottom: {{ portrait_aspect_ratio | append: '%' }};"
+                            {% endif %}
+                        {% endif %}
+                    {% else %}
+                        style="padding-bottom: 100%;"
+                    {% endif %}
+                >
+                </div>
+            </div>
+        </div>
+        <div class="card-information">
+            <div class="card-information__wrapper text-{{ settings.product_content_text_align }}">
+                {% if settings.show_vendor or settings.show_reviews %}
+                    <div class="card-information__group{% if settings.show_vendor == false or settings.show_review == false %} card-information__group-2{% endif %}{% if settings.show_review %} halo-productReview{% endif %}">
+                        {% if settings.show_vendor %}
+                            <div class="card-vendor animated-loading">
+                                <span class="visually-hidden">{{ 'accessibility.vendor' | t }}</span>
+                                {{ product_card_product.vendor | link_to_vendor }}
+                            </div>
+                        {% endif %}
+                        {% if settings.show_review %}
+                            <div class="card-review clearfix animated-loading">
+                                <span class="shopify-product-reviews-badge" data-id="{{ product_card_product.id }}"></span>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+                
+                <a class="card-title link-underline{% if settings.product_title_line_text != 'full' %} card-title-ellipsis{% endif %} animated-loading" href="{{ product_card_product.url | within: collection }}">
+                    <span class="text">
+                        {{ product_card_product.title | escape }}
+                    </span>
+                </a>
+                <div class="card-price animated-loading">
+                    {% render 'price' %}
+                </div>
+            </div>
+            {%- if settings.show_action -%}
+                <div class="card-action animated-loading">
+                    <button class="button button-ATC" type="submit">
+                        {{ 'products.product.add_to_cart' | t }}
+                    </button>
+                </div>
+            {%- endif -%}
+        </div>
+    </div>
+</div>

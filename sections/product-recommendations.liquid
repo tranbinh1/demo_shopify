@@ -1,0 +1,302 @@
+{%- if section.settings.display_product_block -%}
+    {%- liquid
+        assign container = section.settings.product_block_container
+        assign limit = section.settings.product_block_limit
+        assign layout = section.settings.product_block_layout
+        assign block_title = section.settings.product_block_title
+        assign block_title_align = section.settings.product_block_title_align
+        assign image_ratio = section.settings.product_block_image_ratio
+        assign swipe_on_mobile = section.settings.product_block_swipe_on_mobile
+        assign padding_top = section.settings.padding_top | append: 'px'
+        assign padding_bottom = section.settings.padding_bottom | append: 'px'
+        assign products_to_display = recommendations.products_count
+        if recommendations.products_count > limit
+            assign products_to_display = limit
+        endif 
+        assign swipe = false
+        if swipe_on_mobile == true and layout == 'grid' and products_to_display > 2
+            assign swipe = true
+        endif
+    -%}
+    <style type="text/css" media="screen">
+        #halo-recommendations-block-{{ section.id }}{
+            padding-top: {{ section.settings.padding_top }}px;
+            padding-bottom: {{ section.settings.padding_bottom }}px;
+        }
+    </style>
+    <{% if swipe %}product-slider-component{% else %}div{% endif %} class="halo-block halo-product-block" id="halo-recommendations-block-{{ section.id }}" data-limit="{{ limit }}" data-layout="{{ layout }}" sectionId="{{ section.id }}" data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit=4" data-image-ratio="{{ image_ratio }}" data-swipe="{{ swipe }}" data-recommendations-block>
+        {% if recommendations.performed and recommendations.products_count > 0 %}
+            <div class="container container-{{ container }}">
+                {%- if block_title != blank -%}
+                    <div class="halo-block-header">
+                        <h3 class="title text-{{ block_title_align }}">
+                            <span class="text">{{ block_title | escape }}</span>
+                        </h3>
+                    </div>
+                {%- endif -%}
+                <div class="halo-block-content">
+                    {%- if layout== 'grid' -%}
+                        {%- liquid
+                            assign product_limit = 0
+                            assign column = section.settings.product_block_per_row
+                            if infinite_scroll
+                                assign product_limit = limit
+                            endif
+                        -%}
+                        <div class="products-grid column-{{ column }}{% if swipe %} slider slider--tablet grid grid--peek{% endif %}" data-products-to-show="{{ limit }}">
+                    {%- elsif layout == 'slider' -%}
+                        {%- liquid
+                            assign column = section.settings.product_block_show
+                            assign dots = section.settings.product_block_dots
+                            assign arrows = section.settings.product_block_arrows
+                        -%}
+                        <div class="products-carousel column-{{ column }}"
+                            data-item-to-show="{{ column }}"
+                            data-item-dots="{{ dots }}"
+                            data-item-arrows="{{ arrows }}"
+                        >
+                    {%- endif -%}
+                        {%- for product in recommendations.products limit: limit -%}
+                            <div class="product{% if swipe %} slider__slide grid__item{% endif %}">
+                                {% render 'product-card',
+                                    product_card_product: product,
+                                    media_size: image_ratio,
+                                    portrait_aspect_ratio: '125',
+                                    serial: forloop.index,
+                                    sectionId: sectionId
+                                %}
+                            </div>
+                        {%- endfor -%}
+                    </div>
+                    {%- if swipe -%}
+                        <div class="slider-buttons no-js-hidden{% if products_to_display < 4 %} medium-hide{% endif %}{% if products_to_display < 3 %} small-hide{% endif %}">
+                            <div class="slider-counter">
+                                <span class="slider-counter--current">1</span>
+                                <span aria-hidden="true"> / </span>
+                                <span class="visually-hidden">{{ 'accessibility.of' | t }}</span>
+                                <span class="slider-counter--total">{{ products_to_display }}</span>
+                            </div>
+                            <div class="slider-action">
+                                <button type="button" class="slider-button slider-button--prev" name="previous" aria-label="{{ 'accessibility.previous_slide' | t }}">
+                                    {% render 'icon-caret' %}
+                                </button>
+                                <button type="button" class="slider-button slider-button--next" name="next" aria-label="{{ 'accessibility.next_slide' | t }}">
+                                    {% render 'icon-caret' %}
+                                </button>
+                            </div>
+                        </div>
+                    {%- endif -%}
+                </div>
+            </div>
+        {% endif %}
+    </{% if swipe %}product-slider-component{% else %}div{% endif %}>
+{%- endif -%}
+
+{% schema %}
+{
+    "name": "t:sections.product-recommendations.name",
+    "class": "halo-product-block-sections",
+    "settings": [
+        {
+            "type": "header",
+            "content": "t:sections.product_block.settings.header__1.content",
+            "info": "t:sections.product_block.settings.header__1.info"
+        },
+        {
+            "type": "checkbox",
+            "id": "display_product_block",
+            "label": "t:sections.product_block.settings.general.label__1",
+            "default": true
+        },
+        {
+            "type": "select",
+            "id": "product_block_container",
+            "label": "t:sections.product_block.settings.general.label__2",
+            "default": "1770",
+            "options": [
+            {
+                "value": "1170",
+                "label": "t:sections.product_block.settings.general.options__1"
+            },
+            {
+                "value": "1370",
+                "label": "t:sections.product_block.settings.general.options__2"
+            },
+            {
+                "value": "1570",
+                "label": "t:sections.product_block.settings.general.options__3"
+            },
+            {
+                "value": "1770",
+                "label": "t:sections.product_block.settings.general.options__4"
+            }],
+            "info": "t:sections.product_block.settings.general.info"
+        },
+        {
+            "type": "range",
+            "id": "padding_top",
+            "label": "t:sections.product_block.settings.general.label__3",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "t:sections.product_block.settings.general.unit",
+            "default": 0
+        },
+        {
+            "type": "range",
+            "id": "padding_bottom",
+            "label": "t:sections.product_block.settings.general.label__4",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "t:sections.product_block.settings.general.unit",
+            "default": 0
+        },
+        {
+            "type": "select",
+            "id": "product_block_layout",
+            "label": "t:sections.product_block.settings.general.label__5",
+            "options": [
+            {
+                "value": "grid",
+                "label": "t:sections.product_block.settings.general.options__5"
+            },
+            {
+                "value": "slider",
+                "label": "t:sections.product_block.settings.general.options__6"
+            }],
+            "default": "slider"
+        },
+        {
+            "type": "text",
+            "id": "product_block_title",
+            "label": "t:sections.product_block.settings.general.label__6",
+            "default": "Related Products"
+        },
+        {
+            "type": "select",
+            "id": "product_block_title_align",
+            "label": "t:sections.product_block.settings.general.label__7",
+            "options": [
+            {
+                "value": "left",
+                "label": "t:sections.product_block.settings.general.options__7"
+            },
+            {
+                "value": "right",
+                "label": "t:sections.product_block.settings.general.options__8"
+            },
+            {
+                "value": "center",
+                "label": "t:sections.product_block.settings.general.options__9"
+            }],
+            "default": "center"
+        },
+        {
+            "type": "collection",
+            "id": "product_block_collection",
+            "label": "t:sections.product_block.settings.general.label__8"
+        },
+        {
+            "type": "range",
+            "id": "product_block_limit",
+            "label": "t:sections.product_block.settings.general.label__9",
+            "min": 3,
+            "max": 20,
+            "step": 1,
+            "default": 10
+        },
+        {
+            "type": "select",
+            "id": "product_block_image_ratio",
+            "label": "t:sections.product_block.settings.general.label__10",
+            "options": [
+            {
+                "value": "adapt",
+                "label": "t:sections.product_block.settings.general.options__10"
+            },
+            {
+                "value": "portrait",
+                "label": "t:sections.product_block.settings.general.options__11"
+            },
+            {
+                "value": "square",
+                "label": "t:sections.product_block.settings.general.options__12"
+            }],
+            "default": "adapt"
+        },
+        {
+            "type": "header",
+            "content": "t:sections.product_block.settings.header__2.content"
+        },
+        {
+            "type": "select",
+            "id": "product_block_per_row",
+            "label": "t:sections.product_block.settings.grid.label__1",
+            "options": [
+            {
+                "value": "3",
+                "label": "3"
+            },
+            {
+                "value": "4",
+                "label": "4"
+            },
+            {
+                "value": "5",
+                "label": "5"
+            }],
+            "default": "5"
+        },
+        {
+            "type": "checkbox",
+            "id": "product_block_infinite_scroll",
+            "label": "t:sections.product_block.settings.grid.label__2",
+            "default": true
+        },
+        {
+            "id": "product_block_swipe_on_mobile",
+            "type": "checkbox",
+            "default": true,
+            "label": "t:sections.product_block.settings.grid.label__3"
+        },
+        {
+            "type": "header",
+            "content": "t:sections.product_block.settings.header__3.content"
+        },
+        {
+            "type": "checkbox",
+            "id": "product_block_dots",
+            "label": "t:sections.product_block.settings.slider.label__1",
+            "default": false
+        },
+        {
+            "type": "checkbox",
+            "id": "product_block_arrows",
+            "label": "t:sections.product_block.settings.slider.label__2",
+            "default": true
+        },
+        {
+            "type": "select",
+            "id": "product_block_show",
+            "label": "t:sections.product_block.settings.slider.label__3",
+            "options": [
+            {
+                "value": "3",
+                "label": "3"
+            },
+            {
+                "value": "4",
+                "label": "4"
+            },
+            {
+                "value": "5",
+                "label": "5"
+            }],
+            "default": "5"
+        }
+    ]
+}
+{% endschema %}
+
+

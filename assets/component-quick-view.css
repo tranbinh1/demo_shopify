@@ -1,0 +1,58 @@
+.quickView .productView-top {
+    padding-right: 0;
+}
+
+.halo-quick-view-popup .halo-popup-wrapper{
+	padding: 30px 0 0 0;
+}
+
+.halo-quick-view-popup .halo-popup-content{
+	padding: 0 30px 30px 30px;
+}
+
+body.quick-view-show{
+    overflow-y: hidden;
+    height: 100%;
+}
+
+body.quick-view-show .background-overlay{
+    display: block;
+}
+
+body.quick-view-show .halo-quick-view-popup{
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translate3d(-50%,-50%,0);
+}
+
+body.quick-view-show .halo-quick-view-popup.halo-popup-topDown{
+    transform: translate3d(-50%,0,0);
+}
+
+@media (min-width: 992px) {
+	.quickView .halo-quickView-right{
+        position: sticky;
+        top: 0;
+    }
+}
+
+@media (min-width: 1280px){
+	.halo-quick-view-popup .halo-popup-wrapper{
+		padding-top: 40px;
+	}
+
+	.halo-quick-view-popup .halo-popup-content{
+		padding: 0 40px 40px 40px;
+	}
+}
+
+@media (min-width: 1600px) {
+	.halo-quick-view-popup .halo-popup-wrapper{
+		padding-top: 50px;
+	}
+
+	.halo-quick-view-popup .halo-popup-content{
+		padding: 0 50px 50px 50px;
+	}
+}

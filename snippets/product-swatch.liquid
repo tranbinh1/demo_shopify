@@ -1,0 +1,57 @@
+{%- liquid
+    assign variantCount = product.variants | size
+    assign swatch_type = settings.swatch_type
+    assign type = settings.product_swatch_type
+    assign colorList = ''
+    assign color = ''
+    assign count = 0
+-%}
+{%- if variantCount > 0 and product.variants.first.title != 'Default Title' -%}
+    <div class="card-swatch card-swatch--{{ type }} text-center clearfix" id="product-swatch-{{ product.id }}">
+        <{% if type == 'grid' %}ul{% else %}div{% endif %} class="swatch list-unstyled">
+            {%- for variant in product.variants -%}
+                {% capture color %}
+                    {{ variant.options[index] }}
+                {% endcapture %}
+                {%- unless colorList contains color -%}
+                    {%- assign text = color | handleize -%}
+                    <{% if type == 'grid' %}li{% else %}div{% endif %} class="item">
+                        <div class="item-wrapper clearfix">
+                            <label
+                                {% if product.options_with_values.size == 1 %}
+                                    data-with-one-option="{{ variant.id }}"
+                                    data-quantity="{% if variant.available %}1{% else %}0{% endif %}"
+                                {% endif %}
+                                class="swatch-label{% if count == 0 %} is-active{% endif %}{% if product.options_with_values.size == 1 and variant.unavailable %} is-soldout{% endif %}"
+                                data-value="{{ text }}"
+                                data-variant-id="{{ variant.id }}"
+                                title="{{ color | strip }}"
+                                {% if variant.image != null %} 
+                                    data-variant-img="{{ variant.image.src | product_img_url: '800x' }}"
+                                {% endif %}
+                            >   
+                                {%- if variant.image %}
+                                    <span class="pattern" style="background-image: url({{ variant.image.src | product_img_url: '40x'}});"></span>
+                                {%- else -%}
+                                    {%- if swatch_type == 'png' -%}
+                                        <span class="pattern" style="background-image: url({{ color | handle | append: '.' | append: file_extension | file_url }})"></span>
+                                    {%- else -%}
+                                        <span class="pattern" style="background-color: {{ color | split: ' ' | last | handle }};"></span>
+                                    {%- endif -%}
+                                {%- endif -%}
+                            </label>
+                            <span class="tooltip">
+                                {{ color | escape }}
+                            </span>
+                        </div>
+                        {% assign count = count | plus : 1 %}
+                    </{% if type == 'grid' %}li{% else %}div{% endif %}>
+                    {% capture tempList %}
+                        {{ colorList | append: color | append: ' ' }}
+                    {% endcapture %}
+                    {% assign colorList = tempList %}
+                {%- endunless -%}
+            {%- endfor -%}
+        </{% if type == 'grid' %}ul{% else %}div{% endif %}>
+    </div>
+{%- endif -%}

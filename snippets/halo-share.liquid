@@ -1,0 +1,43 @@
+<{% if share_product_type == 'addthis' %}div{% else %}share-button{% endif %} class="{% if share_product_type == 'default' %}share-button{% else %}halo-socialShare{% endif %} productView-share">
+    {%- if share_product_type == 'default' -%}
+    <button class="share-button__button button hidden">
+        {% render 'icon-share' %}
+        {{ 'general.share.share' | t }}
+    </button>
+    <details>
+        <summary class="share-button__button button">
+            {% render 'icon-share' %}
+            {{ 'general.share.share' | t }}
+        </summary>
+        <div class="share-button__fallback">
+            <div class="form-field">
+                <input type="text"
+                    class="field__input"
+                    id="url"
+                    value="{{ shop.url | append: product.url }}"
+                    placeholder="{{ 'general.share.share_url' | t }}"
+                    onclick="this.select();"
+                    readonly
+                >
+                <label class="field__label hiddenLabels" for="url">{{ 'general.share.share_url' | t }}</label>
+            </div>
+            <button class="button button--primary">
+                {% render 'icon-clipboard' %}
+                {{ 'general.share.copy_to_clipboard' | t }}
+            </button>
+            <span id="ShareMessage-{{ product.id }}" class="share-button__message hidden" role="status" aria-hidden="true">
+                {{ 'general.share.success_message' | t }}
+            </span>
+        </div>
+    </details>
+    {%- else -%}
+        {%- if share_product_script != blank -%}
+            <div class="share_toolbox clearfix">  
+                {{ share_product_script }}
+            </div>
+        {%- endif -%}
+    {%- endif -%}
+</{% if share_product_type == 'addthis' %}div{% else %}share-button{% endif %}>
+{%- if share_product_type == 'default' -%}
+    <script src="{{ 'share.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}

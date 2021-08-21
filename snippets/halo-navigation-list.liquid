@@ -1,0 +1,144 @@
+<ul class="{{ listClass }}" role="list">
+    {%- liquid
+        if section.blocks.size > 0 and section.settings.show_megamenu
+            assign megamenu = section.blocks | where: "type", "megamenu"
+        endif
+    -%}
+
+    {%- for link in section.settings.menu.links -%}
+        {%- liquid
+            assign sale_item_lv1 = section.settings.sale_item_1 | split: "," | strip | downcase | handle
+            assign sale_item_lv2 = section.settings.sale_item_2 | split: "," | strip | downcase | handle
+            assign sale_item_lv3 = section.settings.sale_item_3 | split: "," | strip | downcase | handle
+            assign title = link.title | escape | downcase | handle
+            if section.settings.show_label
+                assign new_label = section.settings.new_label | split: "," | strip | downcase | handle
+                assign sale_label = section.settings.sale_label | split: "," | strip | downcase | handle
+                assign hot_label = section.settings.hot_label | split: "," | strip | downcase | handle
+            endif
+            for menuItem in megamenu
+                assign check_menu = false
+                assign item = menuItem.settings.item | escape | downcase | handle
+                case item
+                    when title
+                        assign check_menu = true
+                        assign style = menuItem.settings.style
+                        assign column = menuItem.settings.column
+                        assign show_custom_text = menuItem.settings.show_custom_text
+                        if show_custom_text
+                            assign custom_text_title = menuItem.settings.custom_text_title
+                            assign custom_text_text = menuItem.settings.custom_text_text
+                            assign custom_text_link_text = menuItem.settings.custom_text_link_text
+                            assign custom_text_url = menuItem.settings.custom_text_url
+                        endif
+                        assign show_banner = menuItem.settings.show_banner
+                        if show_banner
+                            assign banner_width = menuItem.settings.banner_width
+                            assign show_banner_1 = menuItem.settings.show_banner_1
+                            if show_banner_1
+                                assign banner_1 = menuItem.settings.banner_1
+                                assign banner_title_1 = menuItem.settings.banner_title_1
+                                assign banner_text_1 = menuItem.settings.banner_text_1
+                                assign banner_url_1 = menuItem.settings.banner_url_1
+                            endif
+                            assign show_banner_2 = menuItem.settings.show_banner_2
+                            if show_banner_2
+                                assign banner_2 = menuItem.settings.banner_2
+                                assign banner_title_2 = menuItem.settings.banner_title_2
+                                assign banner_text_2 = menuItem.settings.banner_text_2
+                                assign banner_url_2 = menuItem.settings.banner_url_2
+                            endif
+                            assign show_banner_3 = menuItem.settings.show_banner_3
+                            if show_banner_3
+                                assign banner_3 = menuItem.settings.banner_3
+                                assign banner_title_3 = menuItem.settings.banner_title_3
+                                assign banner_text_3 = menuItem.settings.banner_text_3
+                                assign banner_url_3 = menuItem.settings.banner_url_3
+                            endif
+                            assign show_banner_4 = menuItem.settings.show_banner_4
+                            if show_banner_4
+                                assign banner_4 = menuItem.settings.banner_4
+                                assign banner_title_4 = menuItem.settings.banner_title_4
+                                assign banner_text_4 = menuItem.settings.banner_text_4
+                                assign banner_url_4 = menuItem.settings.banner_url_4
+                            endif
+                        endif
+                        assign show_az_brand = menuItem.settings.show_az_brand
+                        if show_az_brand
+                            assign az_brand_title = menuItem.settings.az_brand_title
+                            assign az_brand_link_text = menuItem.settings.az_brand_link_text
+                            assign az_brand_url = menuItem.settings.az_brand_url
+                        endif
+                        assign show_product = menuItem.settings.show_product
+                        if show_product
+                            assign product_title = menuItem.settings.product_title
+                            assign product_collection = menuItem.settings.product_collection
+                            assign product_limit = menuItem.settings.product_limit
+                            assign product_per_row = menuItem.settings.product_per_row
+                        endif
+                        break
+                endcase
+            endfor
+        -%}
+        {%- if check_menu -%}
+            {% render 'halo-megamenu'
+                link: link,
+                title: title,
+                sale_item_lv1: sale_item_lv1,
+                sale_item_lv2: sale_item_lv2,
+                sale_item_lv3: sale_item_lv3,
+                new_label: new_label,
+                sale_label: sale_label,
+                hot_label: hot_label,
+                column: column,
+                show_custom_text: show_custom_text,
+                custom_text_title: custom_text_title,
+                custom_text_text: custom_text_text,
+                custom_text_link_text: custom_text_link_text,
+                custom_text_url: custom_text_url,
+                show_banner: show_banner,
+                banner_width: banner_width,
+                show_banner_1: show_banner_1,
+                banner_1: banner_1,
+                banner_title_1: banner_title_1,
+                banner_text_1: banner_text_1,
+                banner_url_1: banner_url_1,
+                show_banner_2: show_banner_2,
+                banner_2: banner_2,
+                banner_title_2: banner_title_2,
+                banner_text_2: banner_text_2,
+                banner_url_2: banner_url_2,
+                show_banner_3: show_banner_3,
+                banner_3: banner_3,
+                banner_title_3: banner_title_3,
+                banner_text_3: banner_text_3,
+                banner_url_3: banner_url_3,
+                show_banner_4: show_banner_4,
+                banner_4: banner_4,
+                banner_title_4: banner_title_4,
+                banner_text_4: banner_text_4,
+                banner_url_4: banner_url_4,
+                show_az_brand: show_az_brand,
+                az_brand_title: az_brand_title,
+                az_brand_link_text: az_brand_link_text,
+                az_brand_url: az_brand_url,
+                show_product: show_product,
+                product_title: product_title,
+                product_collection: product_collection,
+                product_limit: product_limit,
+                product_per_row: product_per_row
+            %}
+        {%- else -%}
+            {% render 'halo-dropdownmenu'
+                link: link,
+                title: title,
+                sale_item_lv1: sale_item_lv1,
+                sale_item_lv2: sale_item_lv2,
+                sale_item_lv3: sale_item_lv3,
+                new_label: new_label,
+                sale_label: sale_label,
+                hot_label: hot_label
+            %}
+        {%- endif -%}
+    {%- endfor -%}
+</ul>

@@ -1,0 +1,32 @@
+.list-payment {
+    font-size: 0;
+    letter-spacing: 0;
+}
+
+.list-payment__item{
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 10px 10px 0;
+}
+
+.list-payment__item img{
+    max-height: 32px;
+}
+
+.list-payment__item .icon{
+    width: auto;
+    height: 32px;
+    fill: currentColor;
+    stroke: transparent;
+}
+
+.list-payment__item:last-child{
+    margin-right: 0;
+}
+
+@media (min-width: 1025px){
+    .list-payment__item{
+        margin-bottom: 22px;
+        margin-right: 22px;
+    }
+}

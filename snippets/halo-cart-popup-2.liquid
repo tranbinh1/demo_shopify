@@ -1,0 +1,15 @@
+<link rel="stylesheet" href="{{ 'component-add-to-cart.css' | asset_url }}" media="print" onload="this.media='all'">
+
+<noscript>{{ 'component-add-to-cart.css' | asset_url | stylesheet_tag }}</noscript>
+
+<div class="halo-popup halo-upsell-popup halo-popup-topDown customPopup-large" data-upsell-popup id="halo-upsell-popup">
+	<div class="halo-popup-header customPopup-header-2">
+	    <a href="javascript:void(0)" title="{{ 'general.common.close' | t }}" class="halo-popup-close clearfix" data-close-upsell-popup>
+	        {% render 'icon-close' %}
+	    </a>
+	    <h5 class="halo-popup-title customPopup-title-2 text-center">
+            {{ 'sections.cart.upsell' | t }}
+        </h5>
+	</div>
+    <div class="halo-popup-content halo-popup-scroll custom-scrollbar"></div>
+</div>

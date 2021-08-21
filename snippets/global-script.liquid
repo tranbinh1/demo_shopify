@@ -1,0 +1,119 @@
+{{ 'vendor.js' | asset_url | script_tag }}
+{{ 'global.js' | asset_url | script_tag }}
+<script>
+	window.money_format = '{{ shop.money_format }}';
+	window.shop_currency = `{{ shop.currency }}`;
+	window.routes = {
+        root: '{{  routes.cart_url | split: "/cart" | first }}',
+        cart: '{{ routes.cart_url }}',
+        cart_add_url: '{{ routes.cart_add_url }}',
+        cart_change_url: '{{ routes.cart_change_url }}',
+        cart_update_url: '{{ routes.cart_update_url }}'
+    };
+    window.button_load_more = {
+        default: `{{ 'general.button_load_more.default' | t }}`,
+        loading: `{{ 'general.button_load_more.loading' | t }}`,
+        view_all: `{{ 'general.button_load_more.view_all' | t }}`,
+        no_more: `{{ 'general.button_load_more.no_more' | t }}`
+    };
+    window.after_add_to_cart = {
+        type: '{{ settings.after_add_to_cart }}',
+        message: `{{ 'products.product.add_to_cart_success_message' | t : name : '[name]' }}`
+    };
+    window.product_swatch_style = '{{ settings.product_swatch_type }}';
+    window.quick_shop = {
+        show: {{ settings.show_quick_shop }}
+    };
+    window.quick_cart = {
+        show: {{ settings.show_quick_cart }},
+        type: `{{ settings.quick_cart_type }}`
+    };
+    window.cartStrings = {
+        error: `{{ 'sections.cart.cart_error' | t }}`,
+        quantityError: `{{ 'sections.cart.cart_quantity_error_html' | t }}`
+    };
+    window.variantStrings = {
+        addToCart: `{{ 'products.product.add_to_cart' | t }}`,
+        addingToCart: `{{ 'products.product.adding_to_cart' | t }}`,
+        addedToCart: `{{ 'products.product.added_to_cart' | t }}`,
+        soldOut: `{{ 'products.product.sold_out' | t }}`,
+        unavailable: `{{ 'products.product.unavailable' | t }}`,
+        soldOut_message: `{{ 'products.product.sold_out_message' | t }}`,
+        unavailable_message: `{{ 'products.product.unavailable_message' | t }}`,
+        addToCart_message: `{{ 'products.product.add_to_cart_message' | t }}`
+    };
+    window.inventory_text = {
+        hotStock: `{{ 'products.product.hot_stock' | t : inventory: '[inventory]' }}`,
+        warningQuantity: `{{ 'products.product.warning_quantity' | t : inventory: '[inventory]' }}`,
+        inStock: `{{ 'products.product.in_stock' | t : inventory: '[inventory]' }}`,
+        outOfStock: `{{ 'products.product.out_of_stock' | t : inventory: '[inventory]' }}`,
+        manyInStock: `{{ 'products.product.many_in_stock' | t : inventory: '[inventory]' }}`
+    };
+    {% if settings.show_calculator_free_shipping_message %}
+        {% if settings.calculator_free_shipping_message_price != blank %}
+            window.free_shipping_price = {{ settings.calculator_free_shipping_message_price }};
+        {% else %}
+            window.free_shipping_price = 0;
+        {% endif %}
+        window.free_shipping_text = {
+            free_shipping_message: `{{ 'calculator_free_shipping_message.general.free_shipping_message' | t }}`,
+            free_shipping_message_1: `{{ 'calculator_free_shipping_message.general.free_shipping_message_1' | t }}`,
+            free_shipping_message_2:`{{ 'calculator_free_shipping_message.general.free_shipping_message_2' | t }}`,
+            free_shipping_message_3: `{{ 'calculator_free_shipping_message.general.free_shipping_message_3' | t }}`,
+            free_shipping_message_4: `{{ 'calculator_free_shipping_message.general.free_shipping_message_4' | t }}`,
+            free_shipping_1: `{{ 'calculator_free_shipping_message.general.free_shipping_1' | t }}`,
+            free_shipping_2: `{{ 'calculator_free_shipping_message.general.free_shipping_2' | t }}`
+        };
+    {% endif %}
+    {% if settings.show_notify_form %}
+        window.notify_me = {
+            show: {{ settings.show_notify_form }},
+            mail: `{{ settings.notify_form_mail }}`,
+            subject: `{{ settings.notify_form_subject }}`,
+            label: `{{ settings.notify_form_label }}`,
+            success: `{{ 'notify_form.general.success' | t }}`,
+            error: `{{ 'notify_form.general.error' | t }}`,
+            button: `{{ 'notify_form.general.label' | t }}`
+        };
+    {% endif %}
+    {% if settings.show_ask_an_expert %}
+        window.ask_an_expert = {
+            customer_name: "{{ 'ask_an_expert.general.customer_name' | t }}",
+            customer_mail: "{{ 'ask_an_expert.general.customer_mail' | t }}",
+            customer_phone: "{{ 'ask_an_expert.general.customer_phone' | t }}",
+            customer_message: "{{ 'ask_an_expert.general.customer_message' | t }}",
+            type_radio1: "{{ settings.ask_an_expert_option_1 }}",
+            type_radio2: "{{ settings.ask_an_expert_option_2 }}",
+            mail: "{{ settings.ask_an_expert_mail }}",
+            subject: "{{ settings.ask_an_expert_subject }}",
+            label: "{{ settings.ask_an_expert_label }}",
+            success: "{{ 'ask_an_expert.general.success' | t }}",
+            error_1: "{{ 'ask_an_expert.general.error_1' | t }}",
+            error_2: "{{ 'ask_an_expert.general.error_2' | t }}"
+        };
+    {% endif %}
+    window.compare = {
+        show: {{ settings.show_compare }},
+        add: `{{ 'compare.general.add' | t }}`,
+        added: `{{ 'compare.general.added' | t }}`,
+        message: `{{ 'compare.general.message' | t }}`
+    };
+    window.wishlist = {
+        show: {{ settings.show_wishlist }},
+        add: `{{ 'wishlist.general.add' | t }}`,
+        added: `{{ 'wishlist.general.added' | t }}`
+    };
+    window.review = {
+        show: {{ settings.show_review }}
+    };
+    window.countdown = {
+        text: `{{ 'countdown.general.text' | t }}`,
+        day: `{{ 'countdown.general.day' | t }}`,
+        hour: `{{ 'countdown.general.hour' | t }}`,
+        min: `{{ 'countdown.general.min' | t }}`,
+        sec: `{{ 'countdown.general.sec' | t }}`
+    };
+    window.customer_view = {
+        text: `{{ 'customer_viewing.general.text' | t : number : '[number]' }}`
+    }
+</script>

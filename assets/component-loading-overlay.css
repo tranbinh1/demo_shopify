@@ -1,0 +1,87 @@
+.loading-overlay {
+    position: absolute;
+    z-index: 1;
+    width: 3rem;
+    top: 0;
+    right: 0;
+}
+
+.loading-overlay__spinner {
+    width: 3rem;
+    display: inline-block;
+}
+
+.spinner {
+    animation: rotator 1.4s linear infinite;
+}
+
+.path {
+    stroke-dasharray: 280;
+    stroke-dashoffset: 0;
+    transform-origin: center;
+    stroke: var(--color-background-global);
+    animation: dash 1.4s ease-in-out infinite;
+}
+
+.loading-overlay:not(.hidden) + .cart-item__price-wrapper,
+.loading-overlay:not(.hidden) ~ cart-remove-button {
+    opacity: 50%;
+}
+
+.loading-overlay:not(.hidden) ~ cart-remove-button {
+    pointer-events: none;
+    cursor: default;
+}
+
+.loading-overlay--custom{
+    display: none;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    padding: 0 5rem;
+    background-color: var(--color-background-overylay);
+}
+
+.loading-overlay--custom .loading-overlay__spinner{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    transform: translate(-50%, -50%);
+}
+
+.loading-overlay--custom .spinner{
+    width: 100%;
+    height: 100%;
+}
+
+.is-loading > .loading-overlay{
+    display: block;
+}
+
+.animated-loading{
+    animation-duration: 2.25s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: shimmer;
+    animation-timing-function: linear;
+    border: none!important;
+    border-radius: 0!important;
+    background: #f9f9f9;
+    background: linear-gradient(to right, #f9f9f9 4%, #f1f2f3 25%, #f9f9f9 36%);
+    background-size: 1200px 100%;
+}
+
+.animated-loading > span,
+.animated-loading > img{
+    opacity: 0!important;
+}
+
+@media (min-width: 768px) {
+    .loading-overlay {
+        left: 0;
+        right: auto;
+    }
+}

@@ -1,0 +1,50 @@
+{%- unless settings.show_quick_cart -%}
+    <link rel="stylesheet" href="{{ 'component-quick-cart.css' | asset_url }}" media="print" onload="this.media='all'">
+{%- endunless -%}
+<link rel="stylesheet" href="{{ 'component-add-to-cart.css' | asset_url }}" media="print" onload="this.media='all'">
+
+{%- unless settings.show_quick_cart -%}
+    <noscript>{{ 'component-quick-cart.css' | asset_url | stylesheet_tag }}</noscript>
+{%- endunless -%}
+<noscript>{{ 'component-add-to-cart.css' | asset_url | stylesheet_tag }}</noscript>
+
+<div class="halo-popup halo-add-to-cart-popup halo-popup-right customPopup-tiny" data-add-to-cart-popup id="halo-add-to-cart-popup">
+    <a href="javascript:void(0)" title="{{ 'general.common.close' | t }}" class="halo-popup-close customPopup-close clearfix" data-close-add-to-cart-popup>
+        {% render 'icon-close' %}
+    </a>
+    <div class="halo-popup-content">
+        <div class="product-added clearfix">
+            <a class="product-image" href=""></a>
+            <div class="product-info">
+                <div class="product-title">
+                    <a class="title" href=""></a>
+                    <span class="text">{{ 'products.product.add_to_cart_success_message' | t }}</span>
+                </div>
+                <div class="product-action clearfix">
+                    <a class="link link-continue" href="javascript:void(0)" onclick="window.location.reload();">
+                        {% render 'icon-stop' %}
+                        <span class="text">
+                            {{ 'sections.cart.continue_shopping' | t }}
+                        </span>
+                    </a>
+                    <a class="link link-view-cart"
+                        href="{{ routes.cart_url }}"
+                    >
+                        {% render 'icon-cart' %}
+                        <span class="text">
+                            {{ 'sections.cart.view_cart' | t }}
+                        </span>
+                    </a>
+                    {%- unless settings.show_global_checkbox -%}
+                        <a class="link link-checkout" href="javascript:void(0)" onclick="window.location='{{ routes.cart_url | split: '/cart' | first }}/checkout'">
+                            {% render 'icon-money-check' %}
+                            <span class="text">
+                                {{ 'sections.cart.checkout' | t }}
+                            </span>
+                        </a>
+                    {%- endunless -%}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
